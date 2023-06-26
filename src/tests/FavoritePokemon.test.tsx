@@ -32,4 +32,3 @@ test('Verifica se existe pokemon na lista de favoritos.', async () => {
 
   // vc sempre será meu favorito charmander, mas o teste me obriga a usar o picachu </3
 });
-
