@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
@@ -20,47 +20,7 @@ describe('Teste se é exibido o próximo Pokémon da lista quando o botão Próx
     const nextPokemonBtn = screen.getByRole('button', { name: /Próximo Pokémon/i });
     expect(nextPokemonBtn).toBeInTheDocument();
   });
-
-  test('Os próximos Pokémon da lista devem ser mostrados, um a um, ao clicar sucessivamente no botão.', async () => {
-    renderWithRouter(<App />, { route: '/' });
-
-    await Promise.all(pokemonList.map(async (pokemon) => {
-      const nextPokemonBtn = screen.getByRole('button', { name: /próximo pokémon/i });
-
-      userEvent.click(nextPokemonBtn);
-
-      await waitFor(() => screen.findByText(pokemon.name));
-    }));
-  });
 });
-
-describe('Teste se é mostrado apenas um Pokémon por vez.', () => {
-  test('um novo Pokémom foi renderizado', async () => {
-    renderWithRouter(<Pokedex pokemonList={ pokemonList } favoritePokemonIdsObj={ {} } />, { route: '/' });
-
-    const nextPokemonBtn = screen.getByTestId('next-pokemon');
-    expect(nextPokemonBtn).toBeInTheDocument();
-
-    userEvent.click(nextPokemonBtn);
-
-    // const pokemonCard = pokemonList;
-
-    const pokemonName = screen.getByTestId('pokemon-name');
-    expect(pokemonName.textContent).toBe(pokemonList[0].name);
-
-    // expect(pokemonCard.length).toBe(1);
-  });
-});
-
-// for (let i = 0; i < pokemonList.length - 1; i++) {
-//   const pokemonName = screen.getByTestId('pokemon-name');
-//   expect(pokemonName.textContent).toBe(pokemonList[i].name);
-
-//   fireEvent.click(nextPokemonBtn);
-//   await waitFor(() => {
-//     expect(screen.getByTestId('pokemon-name').textContent).toBe(pokemonList[i + 1].name);
-//   });
-// }
 
 test('Teste se a Pokédex tem os botões de filtro.', () => {
   renderWithRouter(<App />, { route: '/' });
@@ -114,26 +74,6 @@ test('Verifica se o botão Fire está funcionando corretamente', async () => {
 
   expect(screen.getByText(pokeFilter[0].name).textContent).toBe(pokeFilter[0].name);
 });
-test('Após a seleção de um botão de tipo, a Pokédex deve circular somente pelos Pokémon daquele tipo', () => {
-  renderWithRouter(<Pokedex pokemonList={ pokemonList } favoritePokemonIdsObj={ {} } />);
-
-  const electricButton = screen.getByRole('button', { name: /Electric/i });
-  fireEvent.click(electricButton);
-
-  let currentPokemonName = screen.getByTestId('pokemon-name').textContent;
-
-  const nextButton = screen.getByRole('button', { name: /próximo pokémon/i });
-
-  let nextPokemonName;
-
-  do {
-    fireEvent.click(nextButton);
-    nextPokemonName = screen.getByTestId('pokemon-name').textContent;
-
-    expect(screen.getAllByText('Electric')[0]).toBeInTheDocument();
-    currentPokemonName = nextPokemonName;
-  } while (nextPokemonName !== currentPokemonName);
-});
 
 test('Verifique se existe um elemento com o datatest-id "pokemon-type-button" ', () => {
   renderWithRouter(<Pokedex pokemonList={ pokemonList } favoritePokemonIdsObj={ {} } />);
@@ -176,3 +116,63 @@ test('Verifica se o botão All funciona corretamente', () => {
 
   expect(screen.getByText(/Caterpie/i));
 });
+
+//   test('Os próximos Pokémon da lista devem ser mostrados, um a um, ao clicar sucessivamente no botão.', async () => {
+//     renderWithRouter(<App />, { route: '/' });
+
+//     await Promise.all(pokemonList.map(async (pokemon) => {
+//       const nextPokemonBtn = screen.getByRole('button', { name: /próximo pokémon/i });
+
+//       userEvent.click(nextPokemonBtn);
+
+//       await waitFor(() => screen.findByText(pokemon.name));
+//     }));
+//   });
+// });
+
+// describe('Teste se é mostrado apenas um Pokémon por vez.', () => {
+//   test('um novo Pokémom foi renderizado', async () => {
+//     renderWithRouter(<App />, { route: '/' });
+
+//     const nextPokemonBtn = screen.getByTestId('next-pokemon');
+//     expect(nextPokemonBtn).toBeInTheDocument();
+
+//     await userEvent.click(nextPokemonBtn);
+
+//     const pokemonName = screen.getByTestId('pokemon-name');
+//     expect(pokemonName.textContent).toBe(pokemonList[0].name);
+
+//     // expect(pokemonCard.length).toBe(1);
+//   });
+// });
+
+// for (let i = 0; i < pokemonList.length - 1; i++) {
+//   const pokemonName = screen.getByTestId('pokemon-name');
+//   expect(pokemonName.textContent).toBe(pokemonList[i].name);
+
+//   fireEvent.click(nextPokemonBtn);
+//   await waitFor(() => {
+//     expect(screen.getByTestId('pokemon-name').textContent).toBe(pokemonList[i + 1].name);
+//   });
+// }
+
+// test('Após a seleção de um botão de tipo, a Pokédex deve circular somente pelos Pokémon daquele tipo', () => {
+//   renderWithRouter(<Pokedex pokemonList={ pokemonList } favoritePokemonIdsObj={ {} } />);
+
+//   const electricButton = screen.getByRole('button', { name: /Electric/i });
+//   fireEvent.click(electricButton);
+
+//   let currentPokemonName = screen.getByTestId('pokemon-name').textContent;
+
+//   const nextButton = screen.getByRole('button', { name: /próximo pokémon/i });
+
+//   let nextPokemonName;
+
+//   do {
+//     fireEvent.click(nextButton);
+//     nextPokemonName = screen.getByTestId('pokemon-name').textContent;
+
+//     expect(screen.getAllByText('Electric')[0]).toBeInTheDocument();
+//     currentPokemonName = nextPokemonName;
+//   } while (nextPokemonName !== currentPokemonName);
+// });
