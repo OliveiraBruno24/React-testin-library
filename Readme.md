@@ -1,33 +1,28 @@
-# Título do Projeto
+# Testes de uma Pokédex com React Testing Library
 
-## Descrição
+Projeto focado em **escrever testes** para uma Pokédex em React já pronta: navegação, filtros por tipo, detalhes, favoritos e página 404.
 
-Este repositório está em construção. Aqui você encontrará [breve resumo do projeto ou curso] e seus componentes.
+> Projeto desenvolvido durante o curso de Desenvolvimento Web da [Trybe](https://www.betrybe.com/) (2023).
 
-## Conteúdo
+## O que foi feito
 
-- [Instruções de Instalação](#instruções-de-instalação)
-- [Como Usar](#como-usar)
+- Testes de cada página e componente em `src/tests/` (App, Pokedex, Pokemon, PokemonDetails, FavoritePokemon, About, NotFound)
+- Testes de navegação com React Router (helper `renderWithRouter`)
+- Testes de mutação com Stryker para verificar a qualidade da suíte
 
-## Instruções de Instalação
+## Stack
 
-Descreva aqui as instruções necessárias para configurar o ambiente de desenvolvimento e instalar quaisquer dependências.
+React 18 · TypeScript · React Router · Vitest · React Testing Library · Stryker
 
-## Como Usar
+## Como rodar
 
-Explique como usar. Forneça exemplos de código, capturas de tela ou demonstrações.
+```bash
+npm install
+npm run dev
+```
 
-## Contribuição
+Testes:
 
-Se você deseja contribuir para este projeto, siga estas etapas para contribuir:
-
-1. Crie um fork deste repositório.
-2. Crie um novo branch com um nome descritivo: `git checkout -b minha-contribuicao`
-3. Faça suas alterações e commit: `git commit -m "Adicionando minha contribuição"`
-4. Envie seu branch para o repositório: `git push origin minha-contribuicao`
-5. Abra um pull request neste repositório e aguarde o feedback.
-
-Lembre-se de que todas as contribuições são valorizadas e ajudam a tornar este projeto melhor para todos!
-
-## Continue como desejar este Readme.md
-**Observação:** Este repositório está em construção e será atualizado regularmente. Sinta-se à vontade para adicionar mais seções conforme necessário para o seu projeto.
+```bash
+npm test
+```
